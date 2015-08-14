@@ -32,7 +32,14 @@ class MexcEvent extends MexcEventsAppModel
 			'streams' => array(
 				'content_stream_id' => 'event'
 			)
-		)
+		),
+		'UnifiedSearch.Searcheable' => array(
+			'contain' => array('MexcSpace')
+		),
+		'Temp.TempTemp' => array(
+			'field' => 'is_temp',
+			'modifiedBefore' => 1
+		),
 	);
 	
 	
