@@ -12,6 +12,6 @@
  * @link          https://github.com/museudecienciasunicamp/mexc_events.git Mexc Events public repository
  */
 
-class MexcEventsAppController extends MexcAppController {
+class MexcEventsAppController extends RedeAppController {
 	
 }

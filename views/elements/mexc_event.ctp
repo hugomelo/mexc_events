@@ -21,6 +21,28 @@ switch ($type[0])
 			echo $this->Bl->h4Dry($data['MexcEvent']['name']), $this->Bl->pDry($data['MexcEvent']['summary']);
 	break;
 	
+	case 'preview':
+		switch ($type[1])
+		{
+			case 'unified_search':
+				$item = $data['SblSearchItem'];
+
+				$date = "";
+				if (date('d/m/Y',strtotime($item['start'])) == date('d/m/Y',strtotime($item['end'])))
+					$date = date('de H:m até ', $item['start']).date('H:m de d/m/Y',$item['end']);
+				else
+					$date = date('\d\a\s H:m \d\e d/m/Y \a\té ', strtotime($item['start'])).date('H:m \d\e d/m/Y', strtotime($item['end']));
+				echo $this->Bl->h6(array('class' => 'post-type'), array(), 'Agenda');
+				if (!empty($data['MexcSpace']['FactSite'][0]['name']))
+					echo $this->Bl->div(array('class' => 'project'), array(), $data['MexcSpace']['FactSite'][0]['name']);
+				echo $this->Bl->div(array('class' => 'post-date'), array(), $date);
+				echo $this->Bl->h5(array('class' => 'title'), array(), $item['title']);
+				echo $this->Bl->div(array('class' => 'post-body'), array(), $item['summary']);
+				echo $this->Bl->div(array('class' => 'post-footer-hidder'));
+			break;
+		}
+	break;
+
 	case 'column':
 		$factSite = isset($type[1]) && $type[1] == 'fact_site';
 		$date = $this->Bl->date(array(), 

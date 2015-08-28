@@ -117,6 +117,8 @@ class MexcEvent extends MexcEventsAppModel
  */
 	function saveBurocrata($data)
 	{
+		if (isset($data['MexcEvent']['mexc_space_id']) && $data['MexcEvent']['mexc_space_id'] == '')
+			$data['MexcEvent']['mexc_space_id'] = NULL;
 		return $this->saveAll($data);
 	}
 
