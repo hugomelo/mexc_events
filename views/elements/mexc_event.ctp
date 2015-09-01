@@ -24,8 +24,17 @@ switch ($type[0])
 	case 'preview':
 		switch ($type[1])
 		{
+			case 'box':
 			case 'unified_search':
-				$item = $data['SblSearchItem'];
+				if (isset($data['MexcEvent'])) {
+					$item = $data['MexcEvent'];
+					$url = array('plugin' => 'mexc_events', 'controller' => 'mexc_events', 'action' => 'read', $item['id']);
+					$item['title'] = $item['name'];
+				}
+				else {
+					$item = $data['SblSearchItem'];
+					$url = array('plugin' => 'mexc_events', 'controller' => 'mexc_events', 'action' => 'read', $item['foreign_id']);
+				}
 
 				$date = "";
 				if (date('d/m/Y',strtotime($item['start'])) == date('d/m/Y',strtotime($item['end'])))
@@ -33,11 +42,15 @@ switch ($type[0])
 				else
 					$date = date('\d\a\s H:m \d\e d/m/Y \a\té ', strtotime($item['start'])).date('H:m \d\e d/m/Y', strtotime($item['end']));
 				echo $this->Bl->h6(array('class' => 'post-type'), array(), 'Agenda');
-				if (!empty($data['MexcSpace']['FactSite'][0]['name']))
-					echo $this->Bl->div(array('class' => 'project'), array(), $data['MexcSpace']['FactSite'][0]['name']);
+				if (!empty($data['MexcSpace']['FactSite'][0]['name'])) {
+					echo $this->Bl->anchor(array(), array('url' => '/programas/'.$data['MexcSpace']['id']),
+						$this->Bl->div(array('class' => 'project'), array(), $data['MexcSpace']['FactSite'][0]['name']));
+				}
 				echo $this->Bl->div(array('class' => 'post-date'), array(), $date);
-				echo $this->Bl->h5(array('class' => 'title'), array(), $item['title']);
-				echo $this->Bl->div(array('class' => 'post-body'), array(), $item['summary']);
+				echo $this->Bl->anchor(array(), array('url' => $url),
+					$this->Bl->h5(array('class' => 'title'), array(), $item['title']));
+				echo $this->Bl->anchor(array(), array('url' => $url),
+					$this->Bl->div(array('class' => 'post-body'), array(), $item['summary']));
 				echo $this->Bl->div(array('class' => 'post-footer-hidder'));
 			break;
 		}

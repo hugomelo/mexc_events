@@ -12,8 +12,7 @@
  * @link          https://github.com/museudecienciasunicamp/mexc_events.git Mexc Events public repository
  */
 
-echo $this->element('search_box', array('module' => 'MexcEvent'));
-
+echo $this->element('header-index', array('title' => 'Agenda', 'slug'=>'events'));
 
 if (!empty($two_current_events))
 {
