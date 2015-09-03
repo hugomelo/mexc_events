@@ -43,39 +43,11 @@ class MexcEventsController extends MexcEventsAppController
 	function index()
 	{
 		$conditions = $this->MexcSpace->getConditionsForSpaceFiltering($this->currentSpace);
-		$today_mid_night = date('Y-m-d', strtotime('+1 day'));
-		$current_events = $incoming_events = array();
 		
-		$searching = isset($this->params['named']['page']);
+		$incoming = $this->MexcEvent->getCurrentEventsByYearAndMonth($conditions);
+		$occurred = $this->MexcEvent->getPastEventsByYearAndMonth($conditions);
 		
-		if (!$searching)
-		{
-			$current_events = $this->MexcEvent->find('all', array(
-				'contain' => false,
-				'conditions' => array(
-					'MexcEvent.start <=' => $today_mid_night,
-					'MexcEvent.end >=' => $today_mid_night
-				) + $conditions
-			));
-			$two_current_events = array_slice($current_events, 0, 2);
-			$other_current_events = array_slice($current_events, 2);
-		
-			$incoming_events = $this->MexcEvent->find('all', array(
-				'contain' => false,
-				'order' => array('MexcEvent.start' => 'asc', 'MexcEvent.end' => 'asc', 'MexcEvent.created' => 'asc'),
-				'conditions' => array(
-					'MexcEvent.start >=' => $today_mid_night
-				) + $conditions
-			));
-			$two_incoming_events = array_slice($incoming_events, 0, 2);
-			$other_incoming_events = array_slice($incoming_events, 2);
-
-			$this->paginate['MexcEvent']['limit'] = 4;
-		}
-		
-		$occurred_events = $this->paginate('MexcEvent', array('MexcEvent.end <' => $today_mid_night) + $conditions);
-		
-		$this->set(compact('occurred_events', 'two_incoming_events', 'other_incoming_events', 'two_current_events', 'other_current_events'));
+		$this->set(compact('occurred', 'incoming'));
 	}
 	
 	function read($mexc_event_id = null)

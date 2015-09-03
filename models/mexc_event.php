@@ -122,6 +122,45 @@ class MexcEvent extends MexcEventsAppModel
 		return $this->saveAll($data);
 	}
 
+	function setEventsByYearAndMonth($ev) {
+		$events = array();
+		foreach($ev as $event) {
+			$year = date('Y', strtotime($event['MexcEvent']['start']));
+			$month = br_strftime('%B', strtotime($event['MexcEvent']['start']));
+			if (!isset($events[$year]))
+				$events[$year] = array();
+			if (!isset($events[$year][$month]))
+				$events[$year][$month] = array();
+			$events[$year][$month][] =$event;
+		}
+		return $events;
+	}
+
+	function getCurrentEventsByYearAndMonth($conditions) {
+		$today_mid_night = date('Y-m-d', strtotime('+1 day'));
+		$events = $this->find('all', array(
+			'contain' => false,
+			'order' => array('MexcEvent.start' => 'DESC', 'MexcEvent.end' => 'DESC', 'MexcEvent.created' => 'DESC'),
+			'conditions' => array(
+				'MexcEvent.end >=' => $today_mid_night
+			) + $conditions
+		));
+
+		return $this->setEventsByYearAndMonth($events);
+	}
+
+	function getPastEventsByYearAndMonth($conditions) {
+		$today_mid_night = date('Y-m-d', strtotime('+1 day'));
+		$events = $this->find('all', array(
+			'contain' => false,
+			'order' => array('MexcEvent.start' => 'DESC', 'MexcEvent.end' => 'DESC', 'MexcEvent.created' => 'DESC'),
+			'conditions' => array(
+				'MexcEvent.end <' => $today_mid_night
+			) + $conditions
+		));
+
+		return $this->setEventsByYearAndMonth($events);
+	}
 /** 
  * The data that must be saved into the dashboard. Part of the Dashboard contract.
  *
