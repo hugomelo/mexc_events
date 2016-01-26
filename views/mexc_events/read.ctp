@@ -25,16 +25,17 @@ echo $this->Bl->srow(array('class' => 'pages news'));
 				$date = date('\d\a\s H:m \d\e d/m/Y \a\té ', strtotime($event['MexcEvent']['start'])).date('H:m \d\e d/m/Y', strtotime($event['MexcEvent']['end']));
 
 		echo $this->Bl->div(array(), array(), $date);
+		echo $this->Bl->hr(array('class' => 'meta'));
 		if (!empty($event['MexcEvent']['place_name'])) {
 			echo $this->Bl->div(array(), array(), 
 			"Local: ".$event['MexcEvent']['place_name']);
-		}
-		if (!empty($event['MexcEvent']['place_url'])) {
-			echo $this->Bl->div(array(), array(), 
-			$this->Bl->anchor(array('target' => '_blank'), array('url' => $event['MexcEvent']['place_url']),
+			if (!empty($event['MexcEvent']['place_url'])) {
+				echo $this->Bl->div(array(), array(), 
+				$this->Bl->anchor(array('target' => '_blank'), array('url' => $event['MexcEvent']['place_url']),
 				$event['MexcEvent']['place_url']));
+			}
+			echo $this->Bl->hr(array('class' => 'meta'));
 		}
-	echo $this->Bl->hr(array('class' => 'meta'));
 		if (isset($event['Tag'])) {
 			foreach($event['Tag'] as $tag) {
 				echo $this->Bl->anchor(array(), array('url' => '/tag/'.$tag['keyname']), $tag['name']);
