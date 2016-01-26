@@ -37,8 +37,8 @@ switch ($type[0])
 				}
 
 				$date = "";
-				if (date('d/m/Y',strtotime($item['start'])) == date('d/m/Y',strtotime($item['end'])))
-					$date = date('de H:m até ', $item['start']).date('H:m de d/m/Y',$item['end']);
+				if (date("m/Y", strtotime($item['start'])) == date("m/Y", strtotime($item['end'])))
+					$date = date('\d\e H:m \a\t\é ', strtotime($item['start'])).date('H:m \d\e d/m/Y',strtotime($item['end']));
 				else
 					$date = date('\d\a\s H:m \d\e d/m/Y \a\té ', strtotime($item['start'])).date('H:m \d\e d/m/Y', strtotime($item['end']));
 				echo $this->Bl->h6(array('class' => 'post-type'), array(), 'Agenda');
@@ -65,9 +65,9 @@ switch ($type[0])
 
 				$date = "";
 				if (date('d/m/Y',strtotime($item['start'])) == date('d/m/Y',strtotime($item['end'])))
-					$date = date('de H:m até ', $item['start']).date('H:m de d/m/Y',$item['end']);
+					$date = date('\d\e H:m \a\t\é ', strtotime($item['start'])).date('H:m \d\e d/m/Y',strtotime($item['end']));
 				else
-					$date = date('\d\a\s H:m \d\e d/m/Y \a\té ', strtotime($item['start'])).date('H:m \d\e d/m/Y', strtotime($item['end']));
+					$date = date('\d\a\s H:m \d\e d/m/Y \a\t\é ', strtotime($item['start'])).date('H:m \d\e d/m/Y', strtotime($item['end']));
 
 				echo $this->Bl->div(array('class' => 'post-date'), array(), $date);
 				echo $this->Bl->anchor(array(), array('url' => $url),

@@ -144,18 +144,6 @@ echo $this->Buro->sform(array(), array(
 			)
 		);
 		
-		echo $this->Buro->input(
-			array(),
-			array(
-				'type' => 'related_textile',
-				'label' => __d('mexc_event', 'form - about place (textile) label', true),
-				'instructions' => __d('mexc_event', 'form - about place (textile) instructions', true),
-				'options' => array(
-					'assocName' => 'PlaceTextile'
-				)
-			)
-		);
-		
 	echo $this->Buro->einput();
 	
 	echo $this->Buro->input(
@@ -180,18 +168,6 @@ echo $this->Buro->sform(array(), array(
 		)
 	);
 	
-	echo $this->Buro->input(
-		array(),
-		array(
-			'type' => 'related_textile',
-			'label' => __d('mexc_event', 'form - how to participate (textile) label', true),
-			'instructions' => __d('mexc_event', 'form - how to participate (textile) instructions', true),
-			'options' => array(
-				'assocName' => 'ParticipationTextile'
-			)
-		)
-	);
-		
 	echo $this->Buro->input(
 		array(),
 		array(

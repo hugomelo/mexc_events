@@ -53,18 +53,18 @@ class MexcEventsController extends MexcEventsAppController
 	function read($mexc_event_id = null)
 	{
 		if (empty($mexc_event_id))
-			$this->cakeError('error404');
+			$this->redirect('/eventos');
 		
 		$conditions = $this->MexcSpace->getConditionsForSpaceFiltering($this->currentSpace);
 		$event = $this->MexcEvent->find('first', array(
-			'contain' => array('MexcEventItem', 'PlaceTextile', 'ParticipationTextile', 'Tag'),
+			'contain' => array('MexcEventItem', 'Tag'),
 			'conditions' => array(
 				'MexcEvent.id' => $mexc_event_id,
 			) + $conditions
 		));
 		
 		if (empty($event))
-			$this->cakeError('error404');
+			$this->redirect('/eventos');
 		
 		$this->SectSectionHandler->addToPageTitleArray(array(null, null, $event['MexcEvent']['name']));
 		
