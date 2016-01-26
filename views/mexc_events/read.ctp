@@ -15,7 +15,7 @@
 echo $this->element('header-read', array('title' => $event['MexcEvent']['name'], 'slug'=>'events'));
 
 echo $this->Bl->floatBreak();
-echo $this->Bl->srow(array('class' => 'pages news'));
+echo $this->Bl->srow(array('class' => 'pages events'));
 	echo $this->Bl->hr(array('class' => 'col-xs-12'));
 	
 	echo $this->Bl->sdiv(array('class' => 'col-xs-12 col-md-3 meta'), array());
@@ -45,6 +45,8 @@ echo $this->Bl->srow(array('class' => 'pages news'));
 		}
 	echo $this->Bl->ediv();
 	echo $this->Bl->sdiv(array('class' => 'col-xs-12 col-md-9'), array());
+		
+		echo $this->Bl->img(array('class' => 'event-main-image'), array('id' => $event['MexcEvent']['img_id']));
 		echo $this->Bl->srow(array('class' => ''));
 			echo $this->Jodel->insertModule('ContentStream.CsContentStream', array('full', 'mexc_event'), $event['MexcEvent']['content_stream_id']);
 		echo $this->Bl->erow();
